@@ -17,23 +17,17 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
->>>>>>> c42d8e3aec03eabb8be7f0cbebe206ea0257ae49
-    ];
-=======
     protected $fillable = [
         'name',
         'email',
         'password',
-        'student_id',
+        'admission_number',
         'phone',
         'address',
         'date_of_birth',
         'major',
         'year_of_study',
         'role',
-    ];
-=======
->>>>>>> c42d8e3aec03eabb8be7f0cbebe206ea0257ae49
     ];
 
     /**
@@ -51,9 +45,6 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
-        ];
-    }
-=======
     protected function casts(): array
     {
         return [
@@ -72,8 +63,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(PracticumPlacement::class, 'student_id');
     }
-=======
-        ];
-    }
->>>>>>> c42d8e3aec03eabb8be7f0cbebe206ea0257ae49
 }
