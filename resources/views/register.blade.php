@@ -35,8 +35,42 @@
                     <input type="email" id="email" name="email" value="{{ old('email') }}" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                 </div>
                 <div>
+                    <label for="role" class="block text-sm font-medium text-gray-700">I am a:</label>
+                    <select id="role" name="role" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        <option value="">Select your role</option>
+                        <option value="student">Student</option>
+                        <option value="company">Company Representative</option>
+                    </select>
+                </div>
+                <div id="admission-number-field" style="display: none;">
                     <label for="admission_number" class="block text-sm font-medium text-gray-700">Admission Number</label>
-                    <input type="text" id="admission_number" name="admission_number" value="{{ old('admission_number') }}" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    <input type="text" id="admission_number" name="admission_number" value="{{ old('admission_number') }}" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                </div>
+
+                <!-- Company Fields -->
+                <div id="company-fields" style="display: none;">
+                    <div class="space-y-4">
+                        <div>
+                            <label for="company_name" class="block text-sm font-medium text-gray-700">Company Name</label>
+                            <input type="text" id="company_name" name="company_name" value="{{ old('company_name') }}" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="company_email" class="block text-sm font-medium text-gray-700">Company Email</label>
+                            <input type="email" id="company_email" name="company_email" value="{{ old('company_email') }}" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="company_phone" class="block text-sm font-medium text-gray-700">Company Phone</label>
+                            <input type="text" id="company_phone" name="company_phone" value="{{ old('company_phone') }}" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="company_address" class="block text-sm font-medium text-gray-700">Company Address</label>
+                            <textarea id="company_address" name="company_address" rows="3" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">{{ old('company_address') }}</textarea>
+                        </div>
+                        <div>
+                            <label for="company_industry" class="block text-sm font-medium text-gray-700">Industry</label>
+                            <input type="text" id="company_industry" name="company_industry" value="{{ old('company_industry') }}" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                    </div>
                 </div>
                 <div>
                     <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
@@ -83,6 +117,41 @@
                 toast.classList.add('translate-x-full');
             }, 3000); // Hide after 3 seconds
         }
+
+        // Show/hide fields based on role selection
+        document.getElementById('role').addEventListener('change', function() {
+            const admissionField = document.getElementById('admission-number-field');
+            const admissionInput = document.getElementById('admission_number');
+            const companyFields = document.getElementById('company-fields');
+            const companyInputs = companyFields.querySelectorAll('input, textarea');
+
+            if (this.value === 'student') {
+                admissionField.style.display = 'block';
+                admissionInput.required = true;
+                companyFields.style.display = 'none';
+                companyInputs.forEach(input => {
+                    input.required = false;
+                    input.value = '';
+                });
+            } else if (this.value === 'company') {
+                admissionField.style.display = 'none';
+                admissionInput.required = false;
+                admissionInput.value = '';
+                companyFields.style.display = 'block';
+                companyInputs.forEach(input => {
+                    input.required = true;
+                });
+            } else {
+                admissionField.style.display = 'none';
+                admissionInput.required = false;
+                admissionInput.value = '';
+                companyFields.style.display = 'none';
+                companyInputs.forEach(input => {
+                    input.required = false;
+                    input.value = '';
+                });
+            }
+        });
     </script>
 </body>
 </html>

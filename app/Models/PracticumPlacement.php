@@ -22,6 +22,8 @@ class PracticumPlacement extends Model
         'stipend',
         'supervisor_name',
         'supervisor_email',
+        'cv_path',
+        'cover_letter_path',
     ];
 
     protected $casts = [
